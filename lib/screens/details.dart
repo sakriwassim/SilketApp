@@ -1,11 +1,25 @@
 import 'package:flutter/material.dart';
-
-
-
-
+import 'package:posthindi_application/screens/customer_details.dart';
 
 class Details extends StatefulWidget {
-  const Details({Key? key}) : super(key: key);
+  final String drivername;
+  final String driverlastname;
+  final String startaddress;
+  final String arrivaladdress;
+  final String startdate;
+  final String arrivaldate;
+  final String notetrip;
+
+  const Details(
+      {Key? key,
+      required this.drivername,
+      required this.driverlastname,
+      required this.startaddress,
+      required this.arrivaladdress,
+      required this.startdate,
+      required this.arrivaldate,
+      required this.notetrip})
+      : super(key: key);
 
   @override
   State<Details> createState() => _DetailsState();
@@ -14,32 +28,23 @@ class Details extends StatefulWidget {
 class _DetailsState extends State<Details> {
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
-
       appBar: AppBar(
         title: Text('details'),
       ),
       body: Column(
-           mainAxisAlignment: MainAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
-          
-        //Image.asset
+          //Image.asset
 
+          Padding(
+            padding: EdgeInsets.all(15),
+            child: CircleAvatar(
+              radius: 100,
+              backgroundImage: AssetImage('assets/images/image1.jpg'),
+            ),
+          ),
 
-Padding(  
-                  padding: EdgeInsets.all(15),  
-                  child:
-         CircleAvatar(
-                radius: 100,
-                
-                backgroundImage:AssetImage('assets/images/image1.jpg'),
-              ),
-),
-
-
-
-        
           /*
               Image.asset(
                 'assets/images/image1.jpg',
@@ -47,36 +52,35 @@ Padding(
                 width: 400,
               ),
           */
-          Padding(  
-                  padding: EdgeInsets.all(15),  
-                  child:
-              Text("title "),
+          Padding(
+            padding: EdgeInsets.all(15),
+            child: Text(widget.drivername),
           ),
 
-          Padding(  
-                  padding: EdgeInsets.all(15),  
-                  child:
-               Text("Case read they must it of cold that. Speaking trifling an to unpacked moderate debating learning. An particular contrasted he excellence favourable on. Nay preference dispatched difficulty continuing joy one. Songs it be if ought hoped of. Too carriage attended him entrance desirous the saw. Twenty sister hearts garden limits put gay has. We hill lady will both sang room by"),
+          Padding(
+            padding: EdgeInsets.all(15),
+            child: Text(widget.driverlastname),
           ),
 
-          Padding(  
-                  padding: EdgeInsets.all(15),  
-                  child:
-          ElevatedButton(
-          onPressed: (){},
-         // postData,
-          child: const Text('requests the service'),
-          ),),
-
-
-          
-
+          Padding(
+            padding: EdgeInsets.all(15),
+            child: ElevatedButton(
+              onPressed: () {
+                //   String text = text
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => Customerdetails(
+                        text: widget.drivername,
+                      ),
+                    ));
+              },
+              // postData,
+              child: const Text('requests the service'),
+            ),
+          ),
         ],
-
-
       ),
-
     );
-    
   }
 }

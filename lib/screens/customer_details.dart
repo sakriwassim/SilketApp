@@ -9,6 +9,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:posthindi_application/screens/alertbox_widget.dart';
 import 'package:posthindi_application/screens/pickup_images.dart';
 
 //import 'package:fluttermultipart/upload_page.dart';
@@ -54,10 +55,11 @@ class _CustomerdetailsState extends State<Customerdetails> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(title: Text("Add command")),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
-          const Text('Custom'),
+          Text(widget.text),
           Padding(
             padding: EdgeInsets.all(15),
             child: TextField(
@@ -123,9 +125,34 @@ class _CustomerdetailsState extends State<Customerdetails> {
             child: CameraWidget(),
           ),
           ElevatedButton(
-            // onPressed: () {},
-            onPressed: addCommand,
+            onPressed: () => showDialog<String>(
+              context: context,
+              builder: (BuildContext context) => AlertDialog(
+                title: const Text('AlertDialog Title'),
+                content: const Text('AlertDialog description'),
+                actions: <Widget>[
+                  TextButton(
+                    onPressed: () => Navigator.pop(context, 'Cancel'),
+                    child: const Text('Cancel'),
+                  ),
+                  TextButton(
+                      child: const Text('OK'),
+                      onPressed: () {
+                        Navigator.pop(context, 'OK');
+                        addCommand();
+                      }),
+                ],
+              ),
+            ),
             child: const Text('**save**'),
+
+            /*
+              child: const Text('**save**'),
+              onPressed: () {
+                AlertboxWidget();
+              }
+              //  addCommand,
+              */
           ),
         ],
       ),
