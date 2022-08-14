@@ -2,35 +2,30 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
-import 'package:posthindi_application/screens/update_screen.dart';
-import 'package:posthindi_application/screens/customer_details.dart';
-
-class Gettask extends StatefulWidget {
-  const Gettask({Key? key}) : super(key: key);
+class Getcommand extends StatefulWidget {
+  const Getcommand({Key? key}) : super(key: key);
 
   @override
-  State<Gettask> createState() => _GettaskState();
+  State<Getcommand> createState() => _GetcommandState();
 }
 
-class _GettaskState extends State<Gettask> {
+class _GetcommandState extends State<Getcommand> {
   // this allows us to access the TextField text
   // TextEditingController textFieldController = TextEditingController();
 
-  List tasks = [];
+  List commands = [];
 
   Future getTask() async {
-    var url = Uri.parse('https://silketappbackend.herokuapp.com/accounts');
-
-    //var response = await http.post(url, body: {'name': 'doodle', 'color': 'blue'});
+    var url = Uri.parse('https://silketappbackend.herokuapp.com/commands');
 
     var response = await http.get(url);
     var responsebody = jsonDecode(response.body);
 
     setState(() {
-      tasks.addAll(responsebody);
+      commands.addAll(responsebody);
     });
     print(responsebody);
-    print(tasks);
+    print(commands);
   }
 
   @override
@@ -46,14 +41,14 @@ class _GettaskState extends State<Gettask> {
       body: //const MyStatelessWidget(),
 
           ListView.builder(
-        itemCount: tasks.length,
+        itemCount: commands.length,
         itemBuilder: (context, i) {
           return TextButton(
-              child: Text("${tasks[i]['email']}"),
+              child: Text("${commands[i]['name']}"),
               onPressed: () {
-                //_sendDataToSecondScreen(context);
+                /* //_sendDataToSecondScreen(context);
 
-                String textToSend = "${tasks[i]['email']}";
+                String textToSend = "${commands[i]['email']}";
                 // textFieldController.text;
                 Navigator.push(
                     context,
@@ -62,6 +57,7 @@ class _GettaskState extends State<Gettask> {
                         text: textToSend,
                       ),
                     ));
+              */
               });
 
           //  Text("${tasks[i]['email']}");

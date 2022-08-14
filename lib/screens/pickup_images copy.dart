@@ -1,4 +1,3 @@
-import 'dart:convert';
 import 'dart:ffi';
 import 'dart:io';
 
@@ -15,7 +14,6 @@ class CameraWidget extends StatefulWidget {
 
 class CameraWidgetState extends State {
   PickedFile? imageFile = null;
-
   Future<void> _showChoiceDialog(BuildContext context) {
     return showDialog(
         context: context,
@@ -63,11 +61,6 @@ class CameraWidgetState extends State {
         });
   }
 
-  Future uploadimage() async {
-    //if (imageFile == null) return;
-    //String base64 = base64Encode(imageFile!.readAsBytesSync());
-  }
-
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
@@ -91,7 +84,7 @@ class CameraWidgetState extends State {
             child: (imageFile == null)
                 ? Text("Choose Image")
                 : Image.file(
-                    File(imageFile!.path), height: 100,
+                    File(imageFile!.path), height: 40,
                     //width: 100,
                   ),
           ),
@@ -115,11 +108,7 @@ class CameraWidgetState extends State {
       source: ImageSource.gallery,
     );
     setState(() {
-      imageFile = File(pickedFile!.path) as PickedFile?;
-
-      final bytes = File(imageFile!.path).readAsBytesSync();
-      String base64Image = "data:image/png;base64," + base64Encode(bytes);
-      print("************imageee******" + "img_pan : $base64Image");
+      imageFile = pickedFile!;
     });
 
     Navigator.pop(context);
@@ -129,13 +118,8 @@ class CameraWidgetState extends State {
     final pickedFile = await ImagePicker().getImage(
       source: ImageSource.camera,
     );
-
     setState(() {
       imageFile = pickedFile!;
-
-      final bytes = File(imageFile!.path).readAsBytesSync();
-      String base64Image = base64Encode(bytes);
-      print(base64Image);
     });
     Navigator.pop(context);
   }

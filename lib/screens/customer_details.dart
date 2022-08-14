@@ -1,261 +1,134 @@
-import 'package:flutter/material.dart';
-
+//import 'package:flutter/material.dart';
+//import 'dart:io';
+//import 'dart:ffi';
+//import 'package:image_picker/image_picker.dart';
+import 'package:http/http.dart' as http;
 
 import 'dart:ffi';
 import 'dart:io';
 
-//import 'package:flutter/material.dart';
+import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
-
+import 'package:posthindi_application/screens/pickup_images.dart';
 
 //import 'package:fluttermultipart/upload_page.dart';
 
 class Customerdetails extends StatefulWidget {
-  const Customerdetails({Key? key}) : super(key: key);
+  final String text;
+  const Customerdetails({Key? key, required this.text}) : super(key: key);
 
   @override
   State<Customerdetails> createState() => _CustomerdetailsState();
 }
 
 class _CustomerdetailsState extends State<Customerdetails> {
+  var name;
+  var lastname;
+  var phone;
+  var note;
+  var Image;
 
-   TextEditingController nameController = TextEditingController(); 
+  TextEditingController nameController = TextEditingController();
+  TextEditingController lastnameController = TextEditingController();
+  TextEditingController phoneController = TextEditingController();
+  TextEditingController noteController = TextEditingController();
 
-
-
-/**le pick up image  */
-
-PickedFile? imageFile=null;
-   Future<void>_showChoiceDialog(BuildContext context)
-  {
-    return showDialog(context: context,builder: (BuildContext context){
-
-      return AlertDialog(
-        title: Text("Choose option",style: TextStyle(color: Colors.blue),),
-        content: SingleChildScrollView(
-        child: ListBody(
-          children: [
-            Divider(height: 1,color: Colors.blue,),
-            ListTile(
-              onTap: (){
-                _openGallery(context);
-              },
-            title: Text("Gallery"),
-              leading: Icon(Icons.account_box,color: Colors.blue,),
-        ),
-
-            Divider(height: 1,color: Colors.blue,),
-            ListTile(
-              onTap: (){
-                _openCamera(context);
-              },
-              title: Text("Camera"),
-              leading: Icon(Icons.camera,color: Colors.blue,),
-            ),
-          ],
-        ),
-      ),);
-    });
+  addCommand() async {
+    //String idtripe = widget.text;
+    String link = 'https://silketappbackend.herokuapp.com/addcommand/';
+    try {
+      var response = await http.post(Uri.parse(link), body: {
+        "name": name.toString(),
+        "lastname": lastname.toString(),
+        "phone": phone.toString(),
+        "note": note.toString(),
+        "Image": Image.toString(),
+      });
+      print(response.body);
+    } catch (e) {
+      print(e);
+      print("silketapp");
+    }
   }
-
-
-
-
-
-/**fin code pick up image  */
-
-
-
-
-
 
   @override
   Widget build(BuildContext context) {
-
-
-       return Scaffold(
+    return Scaffold(
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
           const Text('Custom'),
-         
-          Padding(  
-                  padding: EdgeInsets.all(15),  
-                  child:
-          TextField(
-                controller: nameController,  
-                    decoration: InputDecoration(  
-                      border: OutlineInputBorder(),  
-                      labelText: 'remarque',  
-                      hintText: 'Entre une remarque',  
-                    ),
-            onChanged: (text) {
-            print('First text field: $text');
-          //  email =  text  ;
-           },
-          ),
-          ),
-
-
-
-
-
-
-
-          Padding(  
-                  padding: EdgeInsets.all(15),  
-                  child:
-          TextField(
-                controller: nameController,  
-                    decoration: InputDecoration(  
-                      border: OutlineInputBorder(),  
-                      labelText: 'Prenom',  
-                      hintText: 'Enter voter Prenom',  
-                    ),
-            onChanged: (text) {
-            print('First text field: $text');
-          //  email =  text  ;
-           },
-          ),
-          ),
-
-
-
-
-
-
-          Padding(  
-                  padding: EdgeInsets.all(15),  
-                  child:
-          TextField(
-                controller: nameController,  
-                    decoration: InputDecoration(  
-                      border: OutlineInputBorder(),  
-                      labelText: 'Nombre de telephone',  
-                      hintText: 'Enter votre Nbr de telephone',  
-                    ),
-            onChanged: (text) {
-           // print('First text field: $text');
-          //  email =  text  ;
-           },
-          ),
-          ),
-
-
-
-
-
-
-
-          Padding(  
-                  padding: EdgeInsets.all(15),  
-                  child:
-          TextField(
-                controller: nameController,  
-                    decoration: InputDecoration(  
-                      border: OutlineInputBorder(),  
-                      labelText: 'User Name',  
-                      hintText: 'Enter Your Name',  
-                    ),
-            onChanged: (text) {
-            print('First text field: $text');
-          //  email =  text  ;
-           },
-          ),
-          ),
-
-
-
-          Container(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [
-                Card(
-                  child:( imageFile==null)?Text("Choose Image"): 
-                  Image.file( File(  imageFile!.path ),height: 200,
-                  ),
-                  
-                ),
-                //height : 100,
-                MaterialButton(
-                  textColor: Colors.white,
-                  color: Colors.pink,
-                  onPressed: (){
-                    _showChoiceDialog(context);
-                  },
-                  child: Text("Select Image"),
-
-                )
-              ],
+          Padding(
+            padding: EdgeInsets.all(15),
+            child: TextField(
+              controller: nameController,
+              decoration: InputDecoration(
+                border: OutlineInputBorder(),
+                labelText: 'nom',
+                hintText: 'Entre votre nom',
+              ),
+              onChanged: (text) {
+                print('First text field: $text');
+                name = text;
+              },
             ),
           ),
-
-
-
-
-
-
-
-
-
-
-
-
-           
-
-
-            ElevatedButton(
-          onPressed: (){},
-          //postData,
-          child: const Text('**save**'),
+          Padding(
+            padding: EdgeInsets.all(15),
+            child: TextField(
+              controller: lastnameController,
+              decoration: InputDecoration(
+                border: OutlineInputBorder(),
+                labelText: 'Prenom',
+                hintText: 'Enter voter Prenom',
+              ),
+              onChanged: (text) {
+                print('First text field: $text');
+                lastname = text;
+              },
+            ),
           ),
-          
-
-
-
+          Padding(
+            padding: EdgeInsets.all(15),
+            child: TextField(
+              controller: phoneController,
+              decoration: InputDecoration(
+                border: OutlineInputBorder(),
+                labelText: 'Nombre de telephone',
+                hintText: 'Enter votre Nbr de telephone',
+              ),
+              onChanged: (text) {
+                // print('First text field: $text');
+                phone = text;
+              },
+            ),
+          ),
+          Padding(
+            padding: EdgeInsets.all(15),
+            child: TextField(
+              controller: noteController,
+              decoration: InputDecoration(
+                border: OutlineInputBorder(),
+                labelText: 'remarque',
+                hintText: 'Enter une remarque',
+              ),
+              onChanged: (text) {
+                print('First text field: $text');
+                note = text;
+              },
+            ),
+          ),
+          Container(
+            // backgroundColor : Colors.green,
+            child: CameraWidget(),
+          ),
+          ElevatedButton(
+            // onPressed: () {},
+            onPressed: addCommand,
+            child: const Text('**save**'),
+          ),
         ],
-        
       ),
-
     );
-
-    
-  }
-
-
-
-
-
-  void _openGallery(BuildContext context) async{
-    final pickedFile = await ImagePicker().getImage(
-      source: ImageSource.gallery ,
-    );
-    setState(() {
-      imageFile = pickedFile!;
-    });
-
-    Navigator.pop(context);
-  }
-
-  void _openCamera(BuildContext context)  async{
-      final pickedFile = await ImagePicker().getImage(
-            source: ImageSource.camera ,
-            );
-            setState(() {
-            imageFile = pickedFile!;
-      });
-      Navigator.pop(context);
   }
 }
-
-
-
-
-
-
-
-
-
-
-
-

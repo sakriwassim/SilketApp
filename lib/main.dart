@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+
+import 'package:posthindi_application/screens/bottom_nav_bar.dart';
 import 'package:posthindi_application/screens/customer_details.dart';
 import 'package:posthindi_application/screens/details.dart';
 import 'package:posthindi_application/screens/firstscreen.dart';
@@ -8,9 +10,9 @@ import 'package:posthindi_application/screens/pickup_images.dart';
 import 'package:posthindi_application/screens/update_screen.dart';
 //import 'package:posthindi_application/screens/up.dart';
 
-void main() { 
-   runApp(MaterialApp(
+void main() {
+  runApp(MaterialApp(
     debugShowCheckedModeBanner: false,
-    home: Customerdetails(),
+    home: MyHomePage(),
   ));
 }
