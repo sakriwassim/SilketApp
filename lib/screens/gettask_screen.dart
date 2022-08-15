@@ -56,11 +56,17 @@ class _GettaskState extends State<Gettask> {
                       radius: 50,
                       backgroundImage: AssetImage('assets/images/image1.jpg'),
                     ),
-                    title: Text("${tasks[i]['drivername']}"),
+                    title: Text("${tasks[i]['drivername']}" +
+                        " " +
+                        "${tasks[i]['driverlastname']}"),
                     subtitle: Column(
                       children: [
-                        Text("${tasks[i]['startaddress']}"),
-                        Text("${tasks[i]['arrivaladdress']}"),
+                        Text("${tasks[i]['startaddress']}" +
+                            "" +
+                            "${tasks[i]['arrivaladdress']}"),
+                        Text("${tasks[i]['startdate']}" +
+                            "" +
+                            "${tasks[i]['arrivaldate']}"),
                       ],
                     )),
                 Row(

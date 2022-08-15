@@ -32,54 +32,76 @@ class _DetailsState extends State<Details> {
       appBar: AppBar(
         title: Text('details'),
       ),
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: <Widget>[
-          //Image.asset
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            //Image.asset
 
-          Padding(
-            padding: EdgeInsets.all(15),
-            child: CircleAvatar(
-              radius: 100,
-              backgroundImage: AssetImage('assets/images/image1.jpg'),
-            ),
-          ),
-
-          /*
-              Image.asset(
-                'assets/images/image1.jpg',
-                height: 400,
-                width: 400,
+            Padding(
+              padding: EdgeInsets.all(15),
+              child: CircleAvatar(
+                radius: 100,
+                backgroundImage: AssetImage('assets/images/image1.jpg'),
               ),
-          */
-          Padding(
-            padding: EdgeInsets.all(15),
-            child: Text(widget.drivername),
-          ),
-
-          Padding(
-            padding: EdgeInsets.all(15),
-            child: Text(widget.driverlastname),
-          ),
-
-          Padding(
-            padding: EdgeInsets.all(15),
-            child: ElevatedButton(
-              onPressed: () {
-                //   String text = text
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => Customerdetails(
-                        text: widget.drivername,
-                      ),
-                    ));
-              },
-              // postData,
-              child: const Text('requests the service'),
             ),
-          ),
-        ],
+
+            /*
+                Image.asset(
+                  'assets/images/image1.jpg',
+                  height: 400,
+                  width: 400,
+                ),
+            */
+            Center(
+              child: Padding(
+                  padding: EdgeInsets.all(15),
+                  child: Text("le nom choufeur : " +
+                      "${widget.drivername}" +
+                      " " +
+                      "${widget.driverlastname}")),
+            ),
+
+            Padding(
+              padding: EdgeInsets.all(15),
+              child: Text("Address depare : " +
+                  "${widget.startaddress}" +
+                  "Address de arrive " +
+                  "${widget.arrivaladdress}"),
+            ),
+
+            Padding(
+              padding: EdgeInsets.all(15),
+              child: Text("date de depare " +
+                  "${widget.startdate}" +
+                  " date darrive" +
+                  "${widget.arrivaldate}"),
+            ),
+
+            Padding(
+              padding: EdgeInsets.all(15),
+              child: Text(widget.notetrip),
+            ),
+
+            Padding(
+              padding: EdgeInsets.all(15),
+              child: ElevatedButton(
+                onPressed: () {
+                  //   String text = text
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => Customerdetails(
+                          text: widget.drivername,
+                        ),
+                      ));
+                },
+                // postData,
+                child: const Text('requests the service'),
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }

@@ -4,42 +4,47 @@ import 'dart:ffi';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:image_picker/image_picker.dart';
-import 'package:posthindi_application/screens/alertbox_widget.dart';
 import 'package:posthindi_application/screens/pickup_images.dart';
 
 //import 'package:fluttermultipart/upload_page.dart';
 
-class Customerdetails extends StatefulWidget {
-  final String text;
-  const Customerdetails({Key? key, required this.text}) : super(key: key);
+class Addtrip extends StatefulWidget {
+  //final String text;
+  // const Addtrip({Key? key, required this.text}) : super(key: key);
 
   @override
-  State<Customerdetails> createState() => _CustomerdetailsState();
+  State<Addtrip> createState() => _AddtripState();
 }
 
-class _CustomerdetailsState extends State<Customerdetails> {
-  var name;
-  var lastname;
-  var phone;
-  var note;
-  var Image;
+class _AddtripState extends State<Addtrip> {
+  var driverimage;
+  var drivername;
+  var driverlastname;
+  var arrivaladdress;
+  var startdate;
+  var arrivaldate;
+  var notetrip;
 
-  TextEditingController nameController = TextEditingController();
-  TextEditingController lastnameController = TextEditingController();
-  TextEditingController phoneController = TextEditingController();
-  TextEditingController noteController = TextEditingController();
+  TextEditingController driverimageController = TextEditingController();
+  TextEditingController drivernameController = TextEditingController();
+  TextEditingController driverlastnameController = TextEditingController();
+  TextEditingController arrivaladdressController = TextEditingController();
+  TextEditingController startdateController = TextEditingController();
+  TextEditingController arrivaldateController = TextEditingController();
+  TextEditingController notetripController = TextEditingController();
 
-  addCommand() async {
+  addTrip() async {
     //String idtripe = widget.text;
-    String link = 'https://silketappbackend.herokuapp.com/addcommand/';
+    String link = 'https://silketappbackend.herokuapp.com/addtrip';
     try {
       var response = await http.post(Uri.parse(link), body: {
-        "name": name.toString(),
-        "lastname": lastname.toString(),
-        "phone": phone.toString(),
-        "note": note.toString(),
-        "Image": Image.toString(),
+        "driverimage": driverimage.toString(),
+        "drivername": drivername.toString(),
+        "driverlastname": driverlastname.toString(),
+        "arrivaladdress": arrivaladdress.toString(),
+        "startdate": startdate.toString(),
+        "arrivaldate": arrivaldate.toString(),
+        "notetrip": notetrip.toString()
       });
       print(response.body);
     } catch (e) {
@@ -55,11 +60,11 @@ class _CustomerdetailsState extends State<Customerdetails> {
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
-          Text(widget.text),
+          // Text(widget.driverimage),
           Padding(
             padding: EdgeInsets.all(15),
             child: TextField(
-              controller: nameController,
+              controller: driverimageController,
               decoration: InputDecoration(
                 border: OutlineInputBorder(),
                 labelText: 'nom',
@@ -67,14 +72,14 @@ class _CustomerdetailsState extends State<Customerdetails> {
               ),
               onChanged: (text) {
                 print('First text field: $text');
-                name = text;
+                driverimage = text;
               },
             ),
           ),
           Padding(
             padding: EdgeInsets.all(15),
             child: TextField(
-              controller: lastnameController,
+              controller: drivernameController,
               decoration: InputDecoration(
                 border: OutlineInputBorder(),
                 labelText: 'Prenom',
@@ -82,14 +87,14 @@ class _CustomerdetailsState extends State<Customerdetails> {
               ),
               onChanged: (text) {
                 print('First text field: $text');
-                lastname = text;
+                drivername = text;
               },
             ),
           ),
           Padding(
             padding: EdgeInsets.all(15),
             child: TextField(
-              controller: phoneController,
+              controller: driverlastnameController,
               decoration: InputDecoration(
                 border: OutlineInputBorder(),
                 labelText: 'Nombre de telephone',
@@ -97,14 +102,14 @@ class _CustomerdetailsState extends State<Customerdetails> {
               ),
               onChanged: (text) {
                 // print('First text field: $text');
-                phone = text;
+                driverlastname = text;
               },
             ),
           ),
           Padding(
             padding: EdgeInsets.all(15),
             child: TextField(
-              controller: noteController,
+              controller: arrivaladdressController,
               decoration: InputDecoration(
                 border: OutlineInputBorder(),
                 labelText: 'remarque',
@@ -112,7 +117,37 @@ class _CustomerdetailsState extends State<Customerdetails> {
               ),
               onChanged: (text) {
                 print('First text field: $text');
-                note = text;
+                arrivaladdress = text;
+              },
+            ),
+          ),
+          Padding(
+            padding: EdgeInsets.all(15),
+            child: TextField(
+              controller: startdateController,
+              decoration: InputDecoration(
+                border: OutlineInputBorder(),
+                labelText: 'remarque',
+                hintText: 'Enter une remarque',
+              ),
+              onChanged: (text) {
+                print('First text field: $text');
+                startdate = text;
+              },
+            ),
+          ),
+          Padding(
+            padding: EdgeInsets.all(15),
+            child: TextField(
+              controller: notetripController,
+              decoration: InputDecoration(
+                border: OutlineInputBorder(),
+                labelText: 'remarque',
+                hintText: 'Enter une remarque',
+              ),
+              onChanged: (text) {
+                print('First text field: $text');
+                notetrip = text;
               },
             ),
           ),
@@ -135,7 +170,7 @@ class _CustomerdetailsState extends State<Customerdetails> {
                       child: const Text('OK'),
                       onPressed: () {
                         Navigator.pop(context, 'OK');
-                        addCommand();
+                        addTrip();
                       }),
                 ],
               ),
