@@ -20,7 +20,7 @@ void main() {
       '/': (context) => Choice(),
       '/MyHomePage': (context) => MyHomePage(),
       '/Addtrip': (context) => Addtrip(),
-      //  '/Getcommand': (context) => Getcommand(),
+      // '/Customerdetails': (context) => Customerdetails(),
     },
   ));
 }

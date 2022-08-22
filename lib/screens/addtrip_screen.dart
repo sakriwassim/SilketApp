@@ -1,7 +1,6 @@
 import 'dart:convert';
 
 import 'package:http/http.dart' as http;
-
 import 'dart:ffi';
 import 'dart:io';
 
@@ -202,14 +201,7 @@ class _AddtripState extends State<Addtrip> {
           Column(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
-              Card(
-                child: (imageFile == null)
-                    ? Text("Choose Image")
-                    : Image.file(
-                        File(imageFile!.path), height: 100,
-                        //width: 100,
-                      ),
-              ),
+              getimageCard(imageFile: imageFile),
               MaterialButton(
                 textColor: Colors.white,
                 color: Colors.pink,
@@ -237,8 +229,6 @@ class _AddtripState extends State<Addtrip> {
                       onPressed: () {
                         Navigator.pop(context, 'OK');
                         addTrip();
-
-                        print(Image64);
                       }),
                 ],
               ),
@@ -284,13 +274,35 @@ class _AddtripState extends State<Addtrip> {
       final bytes = File(imageFile!.path).readAsBytesSync();
       // String base64Image = base64Encode(bytes);
 
-      String base64Image = "data:image/png;base64," + base64Encode(bytes);
+      String base64Image = base64Encode(bytes);
+      String imagename = pickedFile.path.split("/").last;
 
-      Image64 = base64Image;
+      Image64 = imagename;
 
-      print(base64Image);
+      print(imagename);
     });
     Navigator.pop(context);
     // return base64Image;
+  }
+}
+
+class getimageCard extends StatelessWidget {
+  const getimageCard({
+    Key? key,
+    required this.imageFile,
+  }) : super(key: key);
+
+  final PickedFile? imageFile;
+
+  @override
+  Widget build(BuildContext context) {
+    return Card(
+      child: (imageFile == null)
+          ? Text("Choose Image")
+          : Image.file(
+              File(imageFile!.path), height: 100,
+              //width: 100,
+            ),
+    );
   }
 }

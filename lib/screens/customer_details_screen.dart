@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:http/http.dart' as http;
 
 import 'dart:ffi';
@@ -8,7 +10,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:posthindi_application/widget.dart/alertbox_widget.dart';
 import 'package:posthindi_application/widget.dart/pickup_images.dart';
 
-//import 'package:fluttermultipart/upload_page.dart';
+import '../widget.dart/getimageCard.dart';
 
 class Customerdetails extends StatefulWidget {
   final String text;
@@ -19,6 +21,10 @@ class Customerdetails extends StatefulWidget {
 }
 
 class _CustomerdetailsState extends State<Customerdetails> {
+  PickedFile? imageFile = null;
+
+  String? Image64 = null;
+
   late String bytes64;
   var name;
   var lastname;
@@ -30,6 +36,53 @@ class _CustomerdetailsState extends State<Customerdetails> {
   TextEditingController lastnameController = TextEditingController();
   TextEditingController phoneController = TextEditingController();
   TextEditingController noteController = TextEditingController();
+
+  Future<void> _showChoiceDialog(BuildContext context) {
+    return showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: Text(
+              "Choose option",
+              style: TextStyle(color: Colors.blue),
+            ),
+            content: SingleChildScrollView(
+              child: ListBody(
+                children: [
+                  Divider(
+                    height: 1,
+                    color: Colors.blue,
+                  ),
+                  ListTile(
+                    onTap: () {
+                      _openGallery(context);
+                    },
+                    title: Text("Gallery"),
+                    leading: Icon(
+                      Icons.account_box,
+                      color: Colors.blue,
+                    ),
+                  ),
+                  Divider(
+                    height: 1,
+                    color: Colors.blue,
+                  ),
+                  ListTile(
+                    onTap: () {
+                      _openCamera(context);
+                    },
+                    title: Text("Camera"),
+                    leading: Icon(
+                      Icons.camera,
+                      color: Colors.blue,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          );
+        });
+  }
 
   addCommand() async {
     //String idtripe = widget.text;
@@ -45,12 +98,14 @@ class _CustomerdetailsState extends State<Customerdetails> {
       print(response.body);
     } catch (e) {
       print(e);
-      print("silketapp");
     }
   }
 
   @override
   Widget build(BuildContext context) {
+    //PickedFile? imageFile = null;
+    // String? Image64 = null;
+
     return Scaffold(
       appBar: AppBar(title: Text("Add command")),
       body: Column(
@@ -117,10 +172,20 @@ class _CustomerdetailsState extends State<Customerdetails> {
               },
             ),
           ),
-          Container(
-              // backgroundColor : Colors.green,
-              // child: CameraWidget(base64Image: base64Image, callbackfunction: callback),
-              ),
+          Column(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [
+              getimageCard(imageFile: imageFile),
+              MaterialButton(
+                textColor: Colors.white,
+                color: Colors.pink,
+                onPressed: () {
+                  _showChoiceDialog(context);
+                },
+                child: Text("Select Image"),
+              )
+            ],
+          ),
           ElevatedButton(
             onPressed: () => showDialog<String>(
               context: context,
@@ -142,17 +207,46 @@ class _CustomerdetailsState extends State<Customerdetails> {
               ),
             ),
             child: const Text('**save**'),
-
-            /*
-              child: const Text('**save**'),
-              onPressed: () {
-                AlertboxWidget();
-              }
-              //  addCommand,
-              */
           ),
         ],
       ),
     );
+  }
+
+  void _openGallery(BuildContext context) async {
+    final pickedFile = await ImagePicker().getImage(
+      source: ImageSource.gallery,
+    );
+    setState(() {
+      imageFile = File(pickedFile!.path) as PickedFile?;
+
+      final bytes = File(imageFile!.path).readAsBytesSync();
+      String base64Image = "data:image/png;base64," + base64Encode(bytes);
+      //print("************imageee******" + "img_pan : $base64Image");
+    });
+
+    Navigator.pop(context);
+  }
+
+  void _openCamera(BuildContext context) async {
+    final pickedFile = await ImagePicker().getImage(
+      source: ImageSource.camera,
+    );
+
+    setState(() {
+      imageFile = pickedFile!;
+
+      final bytes = File(imageFile!.path).readAsBytesSync();
+      // String base64Image = base64Encode(bytes);
+
+      String base64Image = base64Encode(bytes);
+      String imagename = pickedFile.path.split("/").last;
+
+      Image64 = imagename;
+
+      print(imagename);
+    });
+    Navigator.pop(context);
+    // return base64Image;
   }
 }

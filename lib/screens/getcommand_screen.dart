@@ -16,7 +16,7 @@ class _GetcommandState extends State<Getcommand> {
   // TextEditingController textFieldController = TextEditingController();
 
   List commands = [];
-  List<Map<String, dynamic>> _foundcommands = [];
+  // List<Map<String, dynamic>> _foundcommands = [];
 
   Future getTask() async {
     var url = Uri.parse('https://silketappbackend.herokuapp.com/commands');
@@ -26,7 +26,7 @@ class _GetcommandState extends State<Getcommand> {
 
     setState(() {
       commands.addAll(responsebody);
-      commands = _foundcommands;
+      // commands = _foundcommands;
     });
     print(responsebody);
     print(commands);
@@ -54,7 +54,7 @@ class _GetcommandState extends State<Getcommand> {
           const SizedBox(height: 20),
           Expanded(
             child: ListView.builder(
-              itemCount: _foundcommands.length,
+              itemCount: commands.length,
               itemBuilder: (context, i) {
                 return Card(
                   child: Column(

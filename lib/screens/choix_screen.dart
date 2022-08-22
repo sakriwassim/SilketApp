@@ -28,12 +28,12 @@ class _ChoiceState extends State<Choice> {
             TextButton(
                 child: Text("Clien"),
                 onPressed: () {
-                  Navigator.pushReplacementNamed(context, '/MyHomePage');
+                  Navigator.pushNamed(context, '/MyHomePage');
                 }),
             TextButton(
                 child: Text("Choufeur"),
                 onPressed: () {
-                  Navigator.pushReplacementNamed(context, '/Addtrip');
+                  Navigator.pushNamed(context, '/Addtrip');
                 }),
           ]))),
     );
