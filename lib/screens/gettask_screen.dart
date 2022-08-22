@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
-import 'package:posthindi_application/screens/details.dart';
+import 'package:posthindi_application/screens/details_trip_screen.dart';
 import 'dart:convert';
 
 import 'package:posthindi_application/screens/update_screen.dart';
-import 'package:posthindi_application/screens/customer_details.dart';
+import 'package:posthindi_application/screens/customer_details_screen.dart';
 
 class Gettask extends StatefulWidget {
   const Gettask({Key? key}) : super(key: key);

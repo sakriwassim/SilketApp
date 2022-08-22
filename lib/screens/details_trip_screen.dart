@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:posthindi_application/screens/customer_details.dart';
+import 'package:posthindi_application/screens/customer_details_screen.dart';
 
 class Details extends StatefulWidget {
   final String drivername;

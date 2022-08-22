@@ -11,6 +11,7 @@ class _ChoiceState extends State<Choice> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       home: Scaffold(
           appBar: AppBar(
             title: Text('Flutter FlatButton Example'),
@@ -27,24 +28,12 @@ class _ChoiceState extends State<Choice> {
             TextButton(
                 child: Text("Clien"),
                 onPressed: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => MyHomePage(
-                            //text: text,
-                            ),
-                      ));
+                  Navigator.pushReplacementNamed(context, '/MyHomePage');
                 }),
             TextButton(
                 child: Text("Choufeur"),
                 onPressed: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => Addtrip(
-                            //text: text,
-                            ),
-                      ));
+                  Navigator.pushReplacementNamed(context, '/Addtrip');
                 }),
           ]))),
     );

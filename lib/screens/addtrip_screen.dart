@@ -1,22 +1,23 @@
+import 'dart:convert';
+
 import 'package:http/http.dart' as http;
 
 import 'dart:ffi';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:posthindi_application/screens/pickup_images.dart';
-
-//import 'package:fluttermultipart/upload_page.dart';
+import 'package:image_picker/image_picker.dart';
 
 class Addtrip extends StatefulWidget {
-  //final String text;
-  // const Addtrip({Key? key, required this.text}) : super(key: key);
-
   @override
   State<Addtrip> createState() => _AddtripState();
 }
 
 class _AddtripState extends State<Addtrip> {
+  PickedFile? imageFile = null;
+  String? Image64 = null;
+  // late final String base64Imagesend;
+  //var Image64;
   var driverimage;
   var drivername;
   var driverlastname;
@@ -24,6 +25,7 @@ class _AddtripState extends State<Addtrip> {
   var startdate;
   var arrivaldate;
   var notetrip;
+  // var base64Image;
 
   TextEditingController driverimageController = TextEditingController();
   TextEditingController drivernameController = TextEditingController();
@@ -33,12 +35,59 @@ class _AddtripState extends State<Addtrip> {
   TextEditingController arrivaldateController = TextEditingController();
   TextEditingController notetripController = TextEditingController();
 
+  Future<void> _showChoiceDialog(BuildContext context) {
+    return showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: Text(
+              "Choose option",
+              style: TextStyle(color: Colors.blue),
+            ),
+            content: SingleChildScrollView(
+              child: ListBody(
+                children: [
+                  Divider(
+                    height: 1,
+                    color: Colors.blue,
+                  ),
+                  ListTile(
+                    onTap: () {
+                      _openGallery(context);
+                    },
+                    title: Text("Gallery"),
+                    leading: Icon(
+                      Icons.account_box,
+                      color: Colors.blue,
+                    ),
+                  ),
+                  Divider(
+                    height: 1,
+                    color: Colors.blue,
+                  ),
+                  ListTile(
+                    onTap: () {
+                      _openCamera(context);
+                    },
+                    title: Text("Camera"),
+                    leading: Icon(
+                      Icons.camera,
+                      color: Colors.blue,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          );
+        });
+  }
+
   addTrip() async {
     //String idtripe = widget.text;
     String link = 'https://silketappbackend.herokuapp.com/addtrip';
     try {
       var response = await http.post(Uri.parse(link), body: {
-        "driverimage": driverimage.toString(),
+        "driverimage": Image64.toString(),
         "drivername": drivername.toString(),
         "driverlastname": driverlastname.toString(),
         "arrivaladdress": arrivaladdress.toString(),
@@ -49,7 +98,6 @@ class _AddtripState extends State<Addtrip> {
       print(response.body);
     } catch (e) {
       print(e);
-      print("silketapp");
     }
   }
 
@@ -121,7 +169,7 @@ class _AddtripState extends State<Addtrip> {
               },
             ),
           ),
-          Padding(
+          /*  Padding(
             padding: EdgeInsets.all(15),
             child: TextField(
               controller: startdateController,
@@ -135,8 +183,8 @@ class _AddtripState extends State<Addtrip> {
                 startdate = text;
               },
             ),
-          ),
-          Padding(
+          ),*/
+          /* Padding(
             padding: EdgeInsets.all(15),
             child: TextField(
               controller: notetripController,
@@ -150,11 +198,29 @@ class _AddtripState extends State<Addtrip> {
                 notetrip = text;
               },
             ),
+          ),*/
+          Column(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [
+              Card(
+                child: (imageFile == null)
+                    ? Text("Choose Image")
+                    : Image.file(
+                        File(imageFile!.path), height: 100,
+                        //width: 100,
+                      ),
+              ),
+              MaterialButton(
+                textColor: Colors.white,
+                color: Colors.pink,
+                onPressed: () {
+                  _showChoiceDialog(context);
+                },
+                child: Text("Select Image"),
+              )
+            ],
           ),
-          Container(
-            // backgroundColor : Colors.green,
-            child: CameraWidget(),
-          ),
+
           ElevatedButton(
             onPressed: () => showDialog<String>(
               context: context,
@@ -171,6 +237,8 @@ class _AddtripState extends State<Addtrip> {
                       onPressed: () {
                         Navigator.pop(context, 'OK');
                         addTrip();
+
+                        print(Image64);
                       }),
                 ],
               ),
@@ -188,5 +256,41 @@ class _AddtripState extends State<Addtrip> {
         ],
       ),
     );
+  }
+
+  void _openGallery(BuildContext context) async {
+    final pickedFile = await ImagePicker().getImage(
+      source: ImageSource.gallery,
+    );
+    setState(() {
+      imageFile = File(pickedFile!.path) as PickedFile?;
+
+      final bytes = File(imageFile!.path).readAsBytesSync();
+      String base64Image = "data:image/png;base64," + base64Encode(bytes);
+      //print("************imageee******" + "img_pan : $base64Image");
+    });
+
+    Navigator.pop(context);
+  }
+
+  void _openCamera(BuildContext context) async {
+    final pickedFile = await ImagePicker().getImage(
+      source: ImageSource.camera,
+    );
+
+    setState(() {
+      imageFile = pickedFile!;
+
+      final bytes = File(imageFile!.path).readAsBytesSync();
+      // String base64Image = base64Encode(bytes);
+
+      String base64Image = "data:image/png;base64," + base64Encode(bytes);
+
+      Image64 = base64Image;
+
+      print(base64Image);
+    });
+    Navigator.pop(context);
+    // return base64Image;
   }
 }

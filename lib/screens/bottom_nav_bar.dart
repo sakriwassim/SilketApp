@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:bottom_navy_bar/bottom_navy_bar.dart';
-import 'package:posthindi_application/screens/customer_details.dart';
+import 'package:posthindi_application/screens/customer_details_screen.dart';
 import 'package:posthindi_application/screens/getcommand_screen.dart';
 import 'package:posthindi_application/screens/gettask_screen.dart';
 

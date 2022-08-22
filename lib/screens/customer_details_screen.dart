@@ -5,8 +5,8 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:posthindi_application/screens/alertbox_widget.dart';
-import 'package:posthindi_application/screens/pickup_images.dart';
+import 'package:posthindi_application/widget.dart/alertbox_widget.dart';
+import 'package:posthindi_application/widget.dart/pickup_images.dart';
 
 //import 'package:fluttermultipart/upload_page.dart';
 
@@ -19,6 +19,7 @@ class Customerdetails extends StatefulWidget {
 }
 
 class _CustomerdetailsState extends State<Customerdetails> {
+  late String bytes64;
   var name;
   var lastname;
   var phone;
@@ -117,9 +118,9 @@ class _CustomerdetailsState extends State<Customerdetails> {
             ),
           ),
           Container(
-            // backgroundColor : Colors.green,
-            child: CameraWidget(),
-          ),
+              // backgroundColor : Colors.green,
+              // child: CameraWidget(base64Image: base64Image, callbackfunction: callback),
+              ),
           ElevatedButton(
             onPressed: () => showDialog<String>(
               context: context,

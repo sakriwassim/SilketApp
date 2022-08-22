@@ -6,6 +6,13 @@ import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 
 class CameraWidget extends StatefulWidget {
+  final String base64Imagesend;
+  final Function callbackfunction;
+
+  const CameraWidget(
+      {Key? key, required this.base64Imagesend, required this.callbackfunction})
+      : super(key: key);
+
   @override
   State createState() {
     // TODO: implement createState
@@ -15,6 +22,7 @@ class CameraWidget extends StatefulWidget {
 
 class CameraWidgetState extends State {
   PickedFile? imageFile = null;
+  late final String base64Imagesend;
 
   Future<void> _showChoiceDialog(BuildContext context) {
     return showDialog(
@@ -63,27 +71,10 @@ class CameraWidgetState extends State {
         });
   }
 
-  Future uploadimage() async {
-    //if (imageFile == null) return;
-    //String base64 = base64Encode(imageFile!.readAsBytesSync());
-  }
-
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
-    return
-        //Scaffold(
-        //hein
-        //appBar: AppBar(
-        //  title: Text("Pick Image Camera"),
-        //  backgroundColor: Colors.green,
-        // ),
-        // body:
-        // Center(
-        // child:
-        Container(
-      //  height: 40,
-      // width: 40,
+    return Container(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
@@ -119,7 +110,7 @@ class CameraWidgetState extends State {
 
       final bytes = File(imageFile!.path).readAsBytesSync();
       String base64Image = "data:image/png;base64," + base64Encode(bytes);
-      print("************imageee******" + "img_pan : $base64Image");
+      //print("************imageee******" + "img_pan : $base64Image");
     });
 
     Navigator.pop(context);
@@ -135,7 +126,9 @@ class CameraWidgetState extends State {
 
       final bytes = File(imageFile!.path).readAsBytesSync();
       String base64Image = base64Encode(bytes);
-      print(base64Image);
+      //print(base64Image);
+
+      base64Image = base64Imagesend;
     });
     Navigator.pop(context);
   }
