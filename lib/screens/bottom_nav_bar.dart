@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:bottom_navy_bar/bottom_navy_bar.dart';
+import 'package:posthindi_application/constants.dart';
 import 'package:posthindi_application/screens/customer_details_screen.dart';
 import 'package:posthindi_application/screens/getcommand_screen.dart';
 import 'package:posthindi_application/screens/gettask_screen.dart';
@@ -26,7 +27,9 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text("Flutter Demo")),
+      backgroundColor: kPrimaryColor,
+
+      appBar: AppBar(elevation: 0, title: Text("welcome")),
       //body: Customerdetails(),
       body: listOfColors[_currentIndex],
       bottomNavigationBar: BottomNavyBar(

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:posthindi_application/constants.dart';
 import 'package:posthindi_application/screens/addtrip_screen.dart';
 
 import 'package:posthindi_application/screens/bottom_nav_bar.dart';
@@ -15,6 +16,10 @@ void main() {
   runApp(MaterialApp(
     debugShowCheckedModeBanner: false,
     title: 'Named Routes Demo',
+    theme: ThemeData(
+      primaryColor: kPrimaryColor,
+      accentColor: kPrimaryColor,
+    ),
     initialRoute: '/MyHomePage',
     routes: {
       '/': (context) => Choice(),
