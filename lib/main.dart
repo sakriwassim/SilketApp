@@ -17,6 +17,7 @@ void main() {
     debugShowCheckedModeBanner: false,
     title: 'Named Routes Demo',
     theme: ThemeData(
+      // visualDensity: VisualDensity.adaptivePlatformDensity,
       primaryColor: kPrimaryColor,
       accentColor: kPrimaryColor,
     ),

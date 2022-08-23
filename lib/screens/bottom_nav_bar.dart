@@ -29,7 +29,11 @@ class _MyHomePageState extends State<MyHomePage> {
     return Scaffold(
       backgroundColor: kPrimaryColor,
 
-      appBar: AppBar(elevation: 0, title: Text("welcome")),
+      appBar: AppBar(
+        elevation: 0,
+        title: Text("welcome"),
+        backgroundColor: kPrimaryColor,
+      ),
       //body: Customerdetails(),
       body: listOfColors[_currentIndex],
       bottomNavigationBar: BottomNavyBar(
