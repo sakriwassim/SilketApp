@@ -57,7 +57,7 @@ class CommandCard extends StatelessWidget {
                   width: 120,
                   child: CircleAvatar(
                     radius: 100,
-                    backgroundImage: AssetImage('assets/images/image1.jpg'),
+                    backgroundImage: AssetImage('assets/images/box.jpg'),
                   ),
 
                   // Image.asset('assets/images/image1.jpg'),
